@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request
 import tweepy
+import os
 
 app = Flask("Twitter")
+port = int(os.environ.get("PORT", 5000))
 
 with open("credentials.txt","r") as file:
     consumer_key = file.readline().split()[2]
@@ -30,10 +32,4 @@ def tweet():
     response = "Your tweet was sent successfully:{}".format(text)
     return render_template("main.html", response=response)
 
-#tweets_from_timeline = api.home_timeline()
-#for tweet in tweets_from_timeline:
-        #print tweet.text
-
-#text = raw_input("what would you like to tweet?")
-
-app.run(debug=True)
+app.run(host='0.0.0.0', port=port, debug=True)
